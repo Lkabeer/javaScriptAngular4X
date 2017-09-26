@@ -1,0 +1,87 @@
+<!-- header and Search X-Team -->
+<header id="headerX" class="bg-success text-white p-4 mb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 id="header-title">Phone Book &#12484;</h1>
+      </div>
+      <div class="col-sm-6 align-self-center">
+        <input [(ngModel)]="query" type="text" id="filterX" class="form-control" placeholder="Search by name or number ... " autofocus>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Add new contact X-Team -->
+<div class="container">
+  <div id="main" class="card card-body mb-3">
+    <h2 class="title">Add New Contact</h2>
+    <form #addContact="ngForm" (ngSubmit)="addContactX(addContact.value)" id="addContact" class="mt-2">
+      <div class="form-group row">
+        <label for="name" class="col-3 col-form-label">Name: </label>
+        <div class="col-9">
+        <input #nameRef="ngModel" ngModel class="form-control" type="text" value="" id="name" name="name" maxlength="100" required placeholder="Contact's name">
+        <h6 class="alert alert-danger mt-2" *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)" [hidden]="!nameRef.errors.maxlength">Please Enter name less than 100 characters</h6>        
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="phone" class="col-3 col-form-label">Phone number: </label>
+        <div class="col-9">
+        <input #phoneNumberRef="ngModel" ngModel class="form-control" type="text" value="" id="phone" name="phone" required placeholder="xx-xxx-xxxx" pattern="^(?:\(\d{2}\)|\d{2}-)\d{3}-\d{4}$" oninvalid="setCustomValidity('Please follow this format xx-xxx-xxxx')" onchange="try{setCustomValidity('')}catch(e){}">
+        <h6 class="alert alert-danger mt-2" *ngIf="phoneNumberRef.errors && (phoneNumberRef.dirty || phoneNumberRef.touched)" [hidden]="!phoneNumberRef.errors.pattern">Please follow this format xx-xxx-xxxx</h6>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-3 col-form-label">Email: </label>
+        <div class="col-9">
+        <input #emailRef="ngModel" ngModel class="form-control" type="email" value="" id="email" name="email" placeholder="Contact's email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,3}$">
+        <h6 class="alert alert-danger mt-2" *ngIf="emailRef.errors && (emailRef.dirty || emailRef.touched)" [hidden]="!emailRef.errors.pattern">Please enter proper email</h6>        
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="saveX" class="col-3 col-form-label"></label>
+        <div class="col-9">
+        <input [disabled]="addContact.invalid" class="form-control btn btn-dark" type="submit" value="Save" id="saveX">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Contacts X-Team   -->
+  <h2 class="title mb-3">Contacts</h2>
+  <div class="row" id="contacts">
+
+    <div *ngFor="let contact of (contacts | search: query); let i = index" class="col-sm-6 contactX">
+      <div class="card p-3 mb-3 text-center">
+        <h4 class="card-title">
+          {{contact.name}}
+          <button class="btn btn-danger btn-sm float-right delete fa fa-close" (click)="removeContact(i)"></button>
+        </h4>
+        <p class="card-text">Phone: {{contact.phone}}</p>
+        <p class="card-text">Email: {{contact.email}}</p>
+      </div>
+    </div>
+    <!-- <div class="col-sm-6 contactX">
+      <div class="card p-3 mb-3 text-center">
+        <h4 class="card-title">
+          Hala Habib
+          <button class="btn btn-danger btn-sm float-right delete fa fa-close"></button>
+        </h4>
+        <p class="card-text">Phone: 023760107</p>
+        <p class="card-text">Email: ahmed@Lkabeer.com</p>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+<!-- footer X-Team -->
+<footer id="footerX" class="bg-success text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <span class="mb-0 small">&copy; Ahmed Samir &#12484;</span>
+      </div>
+    </div>
+  </div>
+</footer>
