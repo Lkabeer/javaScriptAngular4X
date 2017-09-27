@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from "@angular/http";
+import { Pipe, PipeTransform } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
@@ -14,12 +15,8 @@ export class HomeComponent implements OnInit {
   contacts: any = [];  
   startX: number = 0;
   endX: number = 10;
-  newContact: any;  
-
-// selections X-Team
-form: any = document.getElementById('addContact');
-contactsContainer: any = document.getElementById('contacts');
-filter: any = document.getElementById('filterX');
+  newContact: any; 
+  searchStart: boolean = false;
 
   constructor(private _http: Http) {
     this.newContact = {
@@ -66,9 +63,6 @@ filter: any = document.getElementById('filterX');
     }
   }
 
-// filter Contacts X-Team
-
-
   ngOnInit() {
     this.listContacts(10, 0);
     this.getContacts(this.startX, this.endX).subscribe(
@@ -80,5 +74,4 @@ filter: any = document.getElementById('filterX');
       }
     );
   }
-
 }
